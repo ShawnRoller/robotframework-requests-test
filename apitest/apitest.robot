@@ -2,22 +2,21 @@
 Library               Collections
 Library               RequestsLibrary
 
-Suite Setup           Create Session    qa1         https://qa1-retail-api.techstyle.tech/
+Suite Setup           Create Session    qa1         https://qa1-retail-api.techstyle.tech
 
 *** Test Cases ***
 
 Get Request Test
-    Create Session    google             http://www.google.com
+    ${resp_qa1}=     GET On Session     qa1                /uptime     expected_status=200
 
-    ${resp_google}=   GET On Session     google             /           expected_status=200
-    ${resp_json}=     GET On Session     qa1                /uptime
+    Should Be Equal As Strings           ${resp_qa1.reason}    OK
 
-    Should Be Equal As Strings           ${resp_google.reason}    OK
-    Dictionary Should Contain Value      ${resp_json.json()}    sunt aut facere repellat provident occaecati excepturi optio reprehenderit
 
-Post Request Test
-    &{data}=          Create dictionary  title=Robotframework requests  body=This is a test!  userId=1
-    ${resp}=          POST On Session    qa1                /posts    json=${data}
-    
-    Status Should Be                     201    ${resp}
-    Dictionary Should Contain Key        ${resp.json()}     id
+
+# Post Requests with Json Data
+#     ${data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
+#     ${resp}=     Post On Session    qa1     /uptime    json=${data}
+#     Should Be Equal As Strings  ${resp.status_code}  200
+#     ${jsondata}=  Set Variable  ${resp.json()}
+#     Should Be Equal As Strings     ${jsondata['method']}   POST
+#     Should Be Equal     ${jsondata['json']}     ${data}

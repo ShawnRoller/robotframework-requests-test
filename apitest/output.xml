@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.8.5 on linux)" generated="20210319 15:42:31.845" rpa="false" schemaversion="2">
+<suite id="s1" name="Apitest" source="/home/sroller/Documents/robottesting/apitest/apitest.robot">
+<kw name="Create Session" library="RequestsLibrary" type="SETUP">
+<arg>qa1</arg>
+<arg>https://qa1-retail-api.techstyle.tech/</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210319 15:42:31.910" level="INFO">Creating Session using : alias=qa1, url=https://qa1-retail-api.techstyle.tech/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210319 15:42:31.910" endtime="20210319 15:42:31.910"/>
+</kw>
+<test id="s1-t1" name="Get Request Test">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>google</arg>
+<arg>http://www.google.com</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210319 15:42:31.911" level="INFO">Creating Session using : alias=google, url=http://www.google.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210319 15:42:31.911" endtime="20210319 15:42:31.911"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${resp_google}</var>
+<arg>google</arg>
+<arg>/</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" starttime="20210319 15:42:31.911" endtime="20210319 15:43:36.489"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${resp_json}</var>
+<arg>qa1</arg>
+<arg>/uptime</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20210319 15:43:36.489" endtime="20210319 15:43:36.490"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${resp_google.reason}</arg>
+<arg>OK</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" starttime="20210319 15:43:36.490" endtime="20210319 15:43:36.490"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${resp_json.json()}</arg>
+<arg>sunt aut facere repellat provident occaecati excepturi optio reprehenderit</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" starttime="20210319 15:43:36.490" endtime="20210319 15:43:36.490"/>
+</kw>
+<status status="FAIL" starttime="20210319 15:42:31.910" endtime="20210319 15:43:36.490">Execution terminated by signal</status>
+</test>
+<test id="s1-t2" name="Post Request Test">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20210319 15:43:36.490" endtime="20210319 15:43:36.491">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" starttime="20210319 15:42:31.845" endtime="20210319 15:43:36.491"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0" info="combined" combined="NOT robot:exit">NOT robot:exit</stat>
+<stat pass="0" fail="1" skip="0">robot:exit</stat>
+</tag>
+<suite>
+<stat pass="0" fail="2" skip="0" id="s1" name="Apitest">Apitest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
